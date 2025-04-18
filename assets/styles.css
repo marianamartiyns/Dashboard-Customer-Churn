@@ -1,26 +1,135 @@
+/* assets/style.css */
+
+/* Paleta de cores */
+:root {
+  --primary-color: #9B7BDF;
+  --secondary-color: #3663D0;
+  --accent-color: #F96160;
+  --warning-color: #F79256;
+  --text-color: #333333;
+  --bg-color: #FFFFFF;
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+/* Título principal */
+.main-content h1 {
+  text-align: center;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  color: var(--secondary-color);
+}
+
+/* Container de KPIs */
 .kpi-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin: 30px;
 }
 
+/* Cartões de KPI */
 .card {
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    padding: 20px;
-    width: 30%;
-    text-align: center;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 180px;
+  flex: 1;
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
 }
 
-.kpi {
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 10px;
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
+.card-label {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.card-purple {
+  background: linear-gradient(135deg, #9B7BDF 0%, #B68CE0 100%);
+}
+.card-blue {
+  background: linear-gradient(135deg, #3663D0 0%, #5A7FE0 100%);
+}
+.card-red {
+  background: linear-gradient(135deg, #F96160 0%, #FA7B7D 100%);
+}
+.card-orange {
+  background: linear-gradient(135deg, #F79256 0%, #FA9E74 100%);
+}
+.card-green {
+  background: linear-gradient(135deg, #28C76F 0%, #8CE99A 100%);
+}
+
+/* Container de filtros */
 .filter-container {
-    width: 80%;
-    margin: auto;
-    margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 30px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
 }
+
+.filter-container label {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.filter-container .Dropdown {
+  width: 200px;
+}
+
+/* Gráficos */
+/* margens gerais */
+.dcc-graph {
+  margin-bottom: 40px;
+}
+/* classes para altura fixa e alinhamento uniforme */
+.graph-fixed {
+  min-height: 300px;
+  height: 300px;
+}
+
+/* Botão de download */
+#download-btn {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+#download-btn:hover {
+  background-color: var(--warning-color);
+}
+

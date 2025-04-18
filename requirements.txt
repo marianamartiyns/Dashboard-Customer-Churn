@@ -8,3 +8,4 @@ matplotlib
 statsmodels
 scikit-learn
 openpyxl
+dash_bootstrap_components 
