@@ -1,0 +1,26 @@
+.kpi-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.card {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.kpi {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.filter-container {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 40px;
+}
