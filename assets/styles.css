@@ -6,8 +6,8 @@
   --secondary-color: #3663D0;
   --accent-color: #F96160;
   --warning-color: #F79256;
-  --text-color: #333333;
-  --bg-color: #FFFFFF;
+  --text-color: #111111;
+  --bg-color: #fff;
 }
 
 /* Reset básico */
@@ -72,19 +72,19 @@ body {
 }
 
 .card-purple {
-  background: linear-gradient(135deg, #9B7BDF 0%, #B68CE0 100%);
+  background: linear-gradient(135deg, #285943 0%, #8CD790 100%);
 }
 .card-blue {
-  background: linear-gradient(135deg, #3663D0 0%, #5A7FE0 100%);
+  background: linear-gradient(135deg, #285943 0%, #8CD790 100%);
 }
 .card-red {
-  background: linear-gradient(135deg, #F96160 0%, #FA7B7D 100%);
+  background: linear-gradient(135deg, #285943 0%, #8CD790 100%);
 }
 .card-orange {
-  background: linear-gradient(135deg, #F79256 0%, #FA9E74 100%);
+  background: linear-gradient(135deg, #285943 0%, #8CD790 100%);
 }
 .card-green {
-  background: linear-gradient(135deg, #28C76F 0%, #8CE99A 100%);
+  background: linear-gradient(135deg, #285943 0%, #8CD790 100%);
 }
 
 /* Container de filtros */

@@ -192,6 +192,18 @@ def update_dashboard(selected_contract, selected_payment):
         )
 
     # --- Gráficos com labels descritivos ---
+
+    color_map = {
+        'Electronic check': '#31CB00',
+        'Mailed check': '#119822',
+        'Bank transfer (automatic)': '#2A7221',
+        'Credit card (automatic)': '#1E441E',
+
+        'Month-to-month': '#31CB00',
+        'One year': '#119822',
+        'Two year': '#2A7221'
+    }
+
     churn_score_fig = px.line(
         df2.groupby('Tenure Months')['Churn Score'].mean().reset_index(),
         x='Tenure Months', y='Churn Score',
@@ -202,36 +214,59 @@ def update_dashboard(selected_contract, selected_payment):
         },
         template='plotly_white'
     )
+    churn_score_fig.update_traces(line_color='#AAFCB8')
 
+    # Gráfico de churn por método de pagamento
     pay_df = df2.groupby('Payment Method')['Churn Value'].mean().reset_index()
     payment_fig = px.bar(
-    pay_df,
-    x='Payment Method', 
-    y='Churn Value',
-    text_auto='.1%',  
-    color='Payment Method',     
-    title='Churn por Método de Pagamento',
-    labels={ 'Payment Method':'Método de Pagamento','Churn Value':'Churn (%)' },
-    category_orders={'Payment Method': payment_options},
-    template='plotly_white'
+        pay_df,
+        x='Payment Method',
+        y='Churn Value',
+        text_auto='.1%',
+        color='Payment Method',
+        color_discrete_map = color_map,
+        title='Churn por Método de Pagamento',
+        labels={
+            'Payment Method': 'Método de Pagamento',
+            'Churn Value': 'Churn (%)'
+        },
+        category_orders={'Payment Method': payment_options},
+        template='plotly_white'
     )
     payment_fig.update_traces(textposition='outside')
+    payment_fig.update_layout(
+        xaxis_title=None,
+        yaxis_title=None,
+        xaxis_tickvals=[],
+        xaxis_ticktext=[],
+        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
+        showlegend=True
+    )
 
-
+    # Gráfico de churn por tipo de contrato
     contr_df = df2.groupby('Contract')['Churn Value'].mean().reset_index()
     contract_fig = px.bar(
         contr_df,
         x='Contract',
         y='Churn Value',
         text_auto='.1%',
-        color='Contract',                      
-        color_discrete_sequence=px.colors.qualitative.Plotly,    
+        color='Contract',
+        color_discrete_map = color_map,
+        color_discrete_sequence=px.colors.qualitative.Plotly,
         title='Churn por Tipo de Contrato',
-        # labels={ 'Contract':'Tipo de Contrato','Churn Value':'Churn (%)' },
+        labels = {'Contract': 'Tipo de Contrato'},
         category_orders={'Contract': contract_options},
         template='plotly_white'
     )
     contract_fig.update_traces(textposition='outside')
+    contract_fig.update_layout(
+        xaxis_title=None,
+        yaxis_title=None,
+        xaxis_tickvals=[],
+        xaxis_ticktext=[],
+        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
+        showlegend=True
+    )
 
 
     gender_senior_fig = px.bar(
@@ -246,6 +281,11 @@ def update_dashboard(selected_contract, selected_payment):
         },
         template='plotly_white'
     )
+    gender_senior_fig.update_layout(
+    yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
+    showlegend=True
+    )
+    gender_senior_fig.update_traces(texttemplate='%{y:.1%}', textposition='outside')
 
     ind_phone = px.pie(df2, names='Phone Service', hole=0.5,
                        title='Serviço de Telefone', template='plotly_white')
