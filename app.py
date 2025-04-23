@@ -201,7 +201,10 @@ def update_dashboard(selected_contract, selected_payment):
 
         'Month-to-month': '#31CB00',
         'One year': '#119822',
-        'Two year': '#2A7221'
+        'Two year': '#2A7221',
+
+        'Adulto': '#31CB00',
+        'Idoso': '#119822'
     }
 
     churn_score_fig = px.line(
@@ -214,7 +217,7 @@ def update_dashboard(selected_contract, selected_payment):
         },
         template='plotly_white'
     )
-    churn_score_fig.update_traces(line_color='#AAFCB8')
+    churn_score_fig.update_traces(line_color='#119822')
 
     # Gráfico de churn por método de pagamento
     pay_df = df2.groupby('Payment Method')['Churn Value'].mean().reset_index()
@@ -273,6 +276,7 @@ def update_dashboard(selected_contract, selected_payment):
         df2.groupby(['Gender', 'Senior Citizen'])['Churn Value'].mean().reset_index()
            .assign(**{'Senior Citizen': lambda d: d['Senior Citizen'].map({0: 'Adulto', 1: 'Idoso'})}),
         x='Gender', y='Churn Value', color='Senior Citizen', barmode='group',
+        color_discrete_map = color_map,
         title='Churn por Gênero e Idade',
         labels={
             'Gender': 'Gênero',
@@ -298,11 +302,20 @@ def update_dashboard(selected_contract, selected_payment):
         df2.groupby('Gender')['Churn Value'].mean().reset_index(),
         x='Gender', y='Churn Value',
         title='Churn por Gênero',
+        text_auto='.1%',
         labels={
             'Gender': 'Gênero',
             'Churn Value': 'Churn (%)'
         },
         template='plotly_white'
+    )
+    churn_by_gender_fig.update_layout(
+        xaxis_title=None,
+        yaxis_title=None,
+        xaxis_tickvals=[],
+        xaxis_ticktext=[],
+        yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
+        showlegend=True
     )
 
     boxplot_fig = px.box(
