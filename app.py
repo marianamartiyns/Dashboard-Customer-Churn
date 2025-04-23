@@ -60,7 +60,7 @@ app.layout = dbc.Container(fluid=True, className="p-4", children=[
     dbc.Row(
         dbc.Col(html.Div(id='kpi-cards', className='d-flex flex-wrap gap-2'),
                 width=12),
-        className="mb-3"
+        className="mb-4"
     ),
 
     # Filtros lado a lado
@@ -95,49 +95,94 @@ app.layout = dbc.Container(fluid=True, className="p-4", children=[
         ]
     ),
 
-    # Gráficos
+    # Linha divisória após filtros
     dbc.Row(
-    dbc.Col(dcc.Graph(id='churn-tenure-hist', style={'height': '300px'}), width=12),
-    className="mb-4"
-),
-    dbc.Row(
-    dbc.Col(dcc.Graph(id='churn-tenure-hist2', style={'height': '300px'}), width=12),
-    className="mb-4"
-),
-    dbc.Row(
-        dbc.Col(dcc.Graph(id='churn-score-time',
-                          style={'height': '300px'}), width=12),
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
         className="mb-4"
     ),
-    dbc.Row([
-        dbc.Col(dcc.Graph(id='churn-by-payment',
-                          style={'height': '450px'}), width=6),
-        dbc.Col(dcc.Graph(id='churn-by-contract',
-                          style={'height': '450px'}), width=6),
-    ], className="mb-4"),
+
+    # Gráficos
     dbc.Row(
-        dbc.Col(dcc.Graph(id='churn-gender-senior',
-                          style={'height': '450px'}), width=12),
-        className="mb-5"
+        dbc.Col(dcc.Graph(id='churn-tenure-hist', style={'height': '300px'}), width=12),
+        className="mb-4 px-2"
     ),
-    dbc.Row([
-        dbc.Col(dcc.Graph(id='indicator-phone',
-                          style={'height': '350px'}), width=4),
-        dbc.Col(dcc.Graph(id='indicator-internet',
-                          style={'height': '350px'}), width=4),
-        dbc.Col(dcc.Graph(id='indicator-security',
-                          style={'height': '350px'}), width=4),
-    ], className="mb-5"),
-    dbc.Row([
-        dbc.Col(dcc.Graph(id='churn-by-gender',
-                          style={'height': '450px'}), width=6),
-        dbc.Col(dcc.Graph(id='boxplot-charges',
-                          style={'height': '450px'}), width=6),
-    ], className="mb-4"),
+
+    # Linha divisória
     dbc.Row(
-        dbc.Col(dcc.Graph(id='cltv-map',
-                          style={'height': '600px'}), width=12),
-        className="mb-5"
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row(
+        dbc.Col(dcc.Graph(id='churn-tenure-hist2', style={'height': '300px'}), width=12),
+        className="mb-4 px-2"
+    ),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row(
+        dbc.Col(dcc.Graph(id='churn-score-time', style={'height': '300px'}), width=12),
+        className="mb-4 px-2"
+    ),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row([
+        dbc.Col(dcc.Graph(id='churn-by-payment', style={'height': '450px'}), width=6, className="px-2"),
+        dbc.Col(dcc.Graph(id='churn-by-contract', style={'height': '450px'}), width=6, className="px-2"),
+    ], className="mb-4"),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row(
+        dbc.Col(dcc.Graph(id='churn-gender-senior', style={'height': '450px'}), width=12, className="px-2"),
+        className="mb-4"
+    ),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row([
+        dbc.Col(dcc.Graph(id='indicator-phone', style={'height': '350px'}), width=4, className="px-2"),
+        dbc.Col(dcc.Graph(id='indicator-internet', style={'height': '350px'}), width=4, className="px-2"),
+        dbc.Col(dcc.Graph(id='indicator-security', style={'height': '350px'}), width=4, className="px-2"),
+    ], className="mb-4"),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row([
+        dbc.Col(dcc.Graph(id='churn-by-gender', style={'height': '450px'}), width=6, className="px-2"),
+        dbc.Col(dcc.Graph(id='boxplot-charges', style={'height': '450px'}), width=6, className="px-2"),
+    ], className="mb-4"),
+
+    # Linha divisória
+    dbc.Row(
+        dbc.Col(html.Hr(className="my-2", style={"borderColor": "#d0d0d0", "opacity": "0.6"}), width=12),
+        className="mb-4"
+    ),
+
+    dbc.Row(
+        dbc.Col(dcc.Graph(id='cltv-map', style={'height': '600px'}), width=12, className="px-2"),
+        className="mb-4"
     ),
 ])
 
@@ -220,6 +265,23 @@ def update_dashboard(selected_contract, selected_payment):
     'Idoso': '#525174'
 }
 
+    # Estilo padrão para títulos de gráficos
+    title_font = {
+        'family': 'Arial, sans-serif',
+        'size': 18,
+        'color': '#2c3e50',
+        'weight': 'bold'
+    }
+    
+    # Layout padrão para todos os gráficos
+    common_layout = {
+        'title_font': title_font,
+        'title_x': 0.5,  # Centraliza o título
+        'margin': dict(t=50, b=30, l=40, r=40),
+        'paper_bgcolor': 'rgba(0,0,0,0)',
+        'plot_bgcolor': 'rgba(0,0,0,0)'
+    }
+
     churn_score_fig = px.line(
         df2.groupby('Tenure Months')['Churn Score'].mean().reset_index(),
         x='Tenure Months', y='Churn Score',
@@ -231,6 +293,8 @@ def update_dashboard(selected_contract, selected_payment):
         template='plotly_white'
     )
     churn_score_fig.update_traces(line_color='#232E37')
+    churn_score_fig.update_layout(**common_layout)
+    
     # Clientes que cancelaram (churn == 1)
     df_cancelados = df2[df2['Churn Value'] == 1]
     df_nao_cancelados = df2[df2['Churn Value'] == 0]
@@ -244,6 +308,7 @@ def update_dashboard(selected_contract, selected_payment):
         labels={"Tenure Months": "Meses de Permanência"},
         color_discrete_sequence=[COLOR_CHURN_SAIU] 
     )
+    churn_hist_fig.update_layout(bargap=0.05, template="plotly_white", **common_layout)
 
     churn_hist_fig2 = px.histogram(
         df_nao_cancelados, x="Tenure Months", nbins=50,
@@ -251,9 +316,7 @@ def update_dashboard(selected_contract, selected_payment):
         labels={"Tenure Months": "Meses de Permanência"},
         color_discrete_sequence=[COLOR_CHURN_FICOU]
     )
-
-    churn_hist_fig2.update_layout(bargap=0.05, template="plotly_white")
-    churn_hist_fig.update_layout(bargap=0.05, template="plotly_white")
+    churn_hist_fig2.update_layout(bargap=0.05, template="plotly_white", **common_layout)
 
     # Gráfico de churn por método de pagamento
     pay_df = df2.groupby('Payment Method')['Churn Value'].mean().reset_index()
@@ -279,7 +342,8 @@ def update_dashboard(selected_contract, selected_payment):
         xaxis_tickvals=[],
         xaxis_ticktext=[],
         yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
-        showlegend=True
+        showlegend=True,
+        **common_layout
     )
 
     # Gráfico de churn por tipo de contrato
@@ -304,7 +368,8 @@ def update_dashboard(selected_contract, selected_payment):
         xaxis_tickvals=[],
         xaxis_ticktext=[],
         yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
-        showlegend=True
+        showlegend=True,
+        **common_layout
     )
 
 
@@ -328,7 +393,8 @@ def update_dashboard(selected_contract, selected_payment):
     # Ajustando o layout
     gender_senior_fig.update_layout(
         yaxis=dict(showticklabels=False, showgrid=False, zeroline=False),
-        showlegend=True
+        showlegend=True,
+        **common_layout
     )
 
     # Atualizando os textos no gráfico
@@ -354,10 +420,16 @@ def update_dashboard(selected_contract, selected_payment):
     )
     ind_phone = px.pie(df2, names='Phone Service', hole=0.5,
                        title='Serviço de Telefone', template='plotly_white')
+    ind_phone.update_layout(**common_layout)
+    
     ind_internet = px.pie(df2, names='Internet Service', hole=0.5,
                           title='Serviço de Internet', template='plotly_white')
+    ind_internet.update_layout(**common_layout)
+    
     ind_security = px.pie(df2, names='Online Security', hole=0.5,
                           title='Segurança Online', template='plotly_white')
+    ind_security.update_layout(**common_layout)
+    
     # Atualizando o layout
     churn_by_gender_fig.update_layout(
         xaxis_title=None,
@@ -385,6 +457,7 @@ def update_dashboard(selected_contract, selected_payment):
         template='plotly_white'
     )
     gender_pie_fig.update_traces(textinfo='percent+label', pull=[0.1, 0.1])  # Mostrar % e label
+    gender_pie_fig.update_layout(**common_layout)
 
 # Gráfico de Pizza - Distribuição de Churn
     churn_pie_fig = px.pie(
@@ -396,6 +469,7 @@ def update_dashboard(selected_contract, selected_payment):
         template='plotly_white'
     )
     churn_pie_fig.update_traces(textinfo='percent+label', pull=[0.1, 0.1])  # Mostrar % e label
+    churn_pie_fig.update_layout(**common_layout)
 
     # Organizando os dois gráficos de pizza lado a lado
     churn_by_gender_fig = make_subplots(
@@ -415,7 +489,8 @@ def update_dashboard(selected_contract, selected_payment):
         title_text="Distribuição de Gênero e Churn",
         title_x=0.5,  # Centralizando o título
         showlegend=True,
-        template='plotly_white'
+        template='plotly_white',
+        title_font=title_font
     )
 
     # Exibindo o gráfico
@@ -432,6 +507,7 @@ def update_dashboard(selected_contract, selected_payment):
         category_orders={'Contract': contract_options},
         template='plotly_white'
     )
+    boxplot_fig.update_layout(**common_layout)
 
     map_fig = px.scatter_map(
         df2, lat='Latitude', lon='Longitude',
@@ -442,7 +518,7 @@ def update_dashboard(selected_contract, selected_payment):
         color_continuous_scale=["#C23E17", "#D5CF19", "#13892E"],
         template='plotly_white'
     )
-
+    map_fig.update_layout(**common_layout)
     return (
         cards,
         churn_hist_fig,
