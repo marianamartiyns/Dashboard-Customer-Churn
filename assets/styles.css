@@ -72,19 +72,19 @@ body {
 }
 
 .card-purple {
-  background: linear-gradient(135deg, #2A7221 0%, #1E441E 100%);
+  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 .card-blue {
-  background: linear-gradient(135deg, #2A7221 0%, #1E441E 100%);
+  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 .card-red {
-  background: linear-gradient(135deg, #2A7221 0%, #1E441E 100%);
+  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 .card-orange {
-  background: linear-gradient(135deg, #2A7221 0%, #1E441E 100%);
+  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 .card-green {
-  background: linear-gradient(135deg, #2A7221 0%, #1E441E 100%);
+  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 
 /* Container de filtros */
