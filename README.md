@@ -26,8 +26,7 @@ Um painel interativo para visualizar métricas e indicadores de churn (cancelame
   - **Churn** por método de pagamento  
   - **Churn** por tipo de contrato  
   - **Churn** por gênero e faixa etária  
-  - **Indicadores** de serviços (telefone, internet, segurança)  
-  - **Boxplot** de cobranças mensais por contrato  
+  - **Indicadores** de serviços (telefone, internet, segurança) 
   - **Mapa** de clientes com CLTV  
 
 ## ▶️ Como executar
@@ -73,3 +72,15 @@ dashboard-churn/
 ## 📄 Licença
 
 Este projeto está licenciado sob os termos da [MIT License](LICENSE).
+
+```py
+# Authors Info
+
+# Cleydson de Souza, csfj@academico.ufpb.br
+# Davi Nasiasene Amorim, davi.nasiasene@academico.ufpb.br
+# Mariana Martins, marianamartiyns@gmail.com
+# Thiago Rodrigues, thiago.rodrigues@academico.ufpb.br
+```
+
+<img align="right" width ='40px' src ='https://img.icons8.com/?size=100&id=lOqoeP2Zy02f&format=png&color=000000'> </a>
+<img align="right" width ='40px' src ='https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg'> </a>
