@@ -1,7 +1,18 @@
 /* assets/style.css */
 
-/* Paleta de cores */
+/* Paleta de cores específicas para KPIs */
 :root {
+  --churn-color: #9b0d27;
+  --retention-color: #1E7B4A;
+  --mensal-color: #8cb369;
+  --anual-color: #f4e285;
+  --bienal-color: #f4a259;
+  --cheque-eletronico-color: #ee6352;
+  --transferencia-color: #3fa7d6;
+  --idosos-color: #525174;
+  --adultos-color: #348aa7;
+  --cltv-alto-color: #fac05e;
+
   --primary-color: #9B7BDF;
   --secondary-color: #3663D0;
   --accent-color: #F96160;
@@ -17,7 +28,6 @@
   box-sizing: border-box;
 }
 
-/* Corpo da página */
 body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--bg-color);
@@ -25,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* Título principal */
 .main-content h1 {
   text-align: center;
   margin-bottom: 60px;
@@ -33,7 +42,6 @@ body {
   color: var(--secondary-color);
 }
 
-/* Container de KPIs */
 .kpi-container {
   display: flex;
   flex-wrap: wrap;
@@ -42,7 +50,6 @@ body {
   margin: 30px;
 }
 
-/* Cartões de KPI */
 .card {
   border-radius: 12px;
   padding: 1.5rem;
@@ -54,11 +61,23 @@ body {
   justify-content: center;
   min-width: 180px;
   flex: 1;
-  transition: transform 0.2s ease;
+  background-color: #343E4C;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
+
+.card-churn:hover { background-color: var(--churn-color); }
+.card-retention:hover { background-color: var(--retention-color); }
+.card-mensal:hover { background-color: var(--mensal-color); }
+.card-anual:hover { background-color: var(--anual-color); }
+.card-bienal:hover { background-color: var(--bienal-color); }
+.card-cheque:hover { background-color: var(--cheque-eletronico-color); }
+.card-transferencia:hover { background-color: var(--transferencia-color); }
+.card-idosos:hover { background-color: var(--idosos-color); }
+.card-adultos:hover { background-color: var(--adultos-color); }
+.card-cltv:hover { background-color: var(--cltv-alto-color); }
 
 .card-value {
   font-size: 2rem;
@@ -69,22 +88,6 @@ body {
 .card-label {
   font-size: 1rem;
   opacity: 0.9;
-}
-
-.card-purple {
-  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
-}
-.card-blue {
-  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
-}
-.card-red {
-  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
-}
-.card-orange {
-  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
-}
-.card-green {
-  background: linear-gradient(135deg, #343E4C 0%, #1E2835 100%);
 }
 
 /* Container de filtros */
@@ -107,18 +110,15 @@ body {
   width: 200px;
 }
 
-/* Gráficos */
-/* margens gerais */
 .dcc-graph {
   margin-bottom: 40px;
 }
-/* classes para altura fixa e alinhamento uniforme */
+
 .graph-fixed {
   min-height: 300px;
   height: 300px;
 }
 
-/* Botão de download */
 #download-btn {
   background-color: var(--accent-color);
   color: var(--bg-color);
@@ -132,4 +132,3 @@ body {
 #download-btn:hover {
   background-color: var(--warning-color);
 }
-
