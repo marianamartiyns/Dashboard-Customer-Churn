@@ -50,13 +50,13 @@ app.layout = dbc.Container(fluid=True, className="p-4", children=[
         dbc.Col(dcc.Graph(id='churn-by-payment'), width=6),
         dbc.Col(dcc.Graph(id='churn-by-contract'), width=6)
     ]),
-    dbc.Row(dbc.Col(dcc.Graph(id='churn-gender-senior'))),
+    dbc.Row(dbc.Col(dcc.Graph(id='churn-gender-age-fig'))),  # Alterado aqui
+
     dbc.Row([
         dbc.Col(dcc.Graph(id='phone-service-fig'), width=4),
         dbc.Col(dcc.Graph(id='internet-service-fig'), width=4),
         dbc.Col(dcc.Graph(id='security-service-fig'), width=4)
     ]),
-    dbc.Row(dbc.Col(dcc.Graph(id='boxplot-charges'))),
     dbc.Row(dbc.Col(dcc.Graph(id='cltv-map')))
 ])
 
@@ -68,11 +68,10 @@ app.layout = dbc.Container(fluid=True, className="p-4", children=[
     Output('churn-score-time', 'figure'),
     Output('churn-by-payment', 'figure'),
     Output('churn-by-contract', 'figure'),
-    Output('churn-gender-senior', 'figure'),
+    Output('churn-gender-age-fig', 'figure'),
     Output('phone-service-fig', 'figure'),
     Output('internet-service-fig', 'figure'),
     Output('security-service-fig', 'figure'),
-    Output('boxplot-charges', 'figure'),
     Output('cltv-map', 'figure'),
     Input('contract-filter', 'value'),
     Input('payment-filter', 'value')
@@ -86,44 +85,59 @@ def update_dashboard(selected_contract, selected_payment):
 
     if df2.empty:
         empty_fig = px.scatter()
-        return [html.Div("0", className="card-value")]*12
+        return [html.Div("0", className="card-value")]*11
 
     color_map = {
-        'Cheque eletrônico': '#ee6352',
-        'Cheque enviado pelo correio': '#59cd90',
-        'Transferência bancária (automática)': '#3fa7d6',
-        'Cartão de crédito (automático)': '#fac05e',
-        'Mensal': '#8cb369',
+        'Feminino - Adulto': '#A054DE',
+        'Feminino - Idoso': '#5F209E',
+        'Masculino - Adulto': '#3C80DE',
+        'Masculino - Idoso': '#083B96',
+        'Cheque eletrônico': '#e0db56',
+        'Cheque enviado pelo correio': '#9fc22c',
+        'Transferência bancária (automática)': '#d04343',
+        'Cartão de crédito (automático)': '#f4a259',
+        'Mensal': '#d04343',
         'Anual (1 ano)': '#f4e285',
-        'Bienal (2 anos)': '#f4a259',
-        'Adulto': '#348aa7',
-        'Idoso': '#525174'
+        'Bienal (2 anos)': '#8cb369',
     }
 
     title_font = {'family': 'Arial', 'size': 18, 'color': '#2c3e50', 'weight': 'bold'}
     common_layout = {'title_font': title_font, 'title_x': 0.5, 'template': 'plotly_white'}
 
+    df2['Gender'] = df2['Gender'].map({0: 'Masculino', 1: 'Feminino'})
+    df2['Senior Citizen'] = df2['Senior Citizen'].map({0: 'Adulto', 1: 'Idoso'})
+    df2['Grupo'] = df2['Gender'] + " - " + df2['Senior Citizen']
+
+    churn_group = df2.groupby(['Gender', 'Senior Citizen', 'Grupo'])['Churn Value'].mean().reset_index()
+
+    churn_gender_age_fig = px.bar(
+        churn_group, x='Gender', y='Churn Value', color='Grupo',
+        title='Churn por Gênero e Faixa Etária',
+        text='Churn Value', color_discrete_map=color_map
+    )
+    churn_gender_age_fig.update_traces(texttemplate='%{text:.2%}', textposition='inside')
+    churn_gender_age_fig.update_layout(
+        xaxis_title='Gênero',
+        yaxis_title='Taxa de Churn',
+        barmode='stack',
+        **common_layout
+    )
+
+    # KPIs
     kpis = {
         "Taxa de Churn (%)": df2['Churn Value'].mean() * 100,
         "CLTV Médio (R$)": df2['CLTV'].mean(),
         "Faturamento Médio (R$)": df2['Monthly Charges'].mean(),
         "Tempo Médio (meses)": df2['Tenure Months'].mean(),
-        "% de Idosos": df2['Senior Citizen'].mean() * 100
+        "% de Idosos": df2['Senior Citizen'].map({'Adulto': 0, 'Idoso': 1}).mean() * 100
     }
-    card_classes = [
-        "card card-churn",
-        "card card-cltv",
-        "card card-retention",
-        "card card-mensal",
-        "card card-idosos"
-    ]
 
+    card_classes = ["card card-churn", "card card-cltv", "card card-retention", "card card-mensal", "card card-idosos"]
     cards = [html.Div([
         html.Div(f"{val:.1f}" + ("%" if "%" in label else ""), className="card-value"),
         html.Div(label, className="card-label")
     ], className=card_classes[i]) for i, (label, val) in enumerate(kpis.items())]
 
-    # Histograma de churn
     churn_hist_fig = px.histogram(df2[df2['Churn Value'] == 1], x="Tenure Months", nbins=50,
                                   title="Duração de Permanência - Clientes que Cancelaram",
                                   color_discrete_sequence=["#9b0d27"])
@@ -140,75 +154,36 @@ def update_dashboard(selected_contract, selected_payment):
                               x='Tenure Months', y='Churn Score', title="Churn Score por Tempo")
     churn_score_fig.update_layout(**common_layout)
 
-    # Churn por método de pagamento
     payment_fig = px.bar(df2.groupby('Payment Method')['Churn Value'].mean().reset_index(),
                          x='Payment Method', y='Churn Value', title='Churn por Pagamento',
-                         color='Payment Method', color_discrete_map=color_map,
-                         text='Churn Value')
+                         color='Payment Method', color_discrete_map=color_map, text='Churn Value')
     payment_fig.update_layout(xaxis=dict(visible=False), **common_layout)
     payment_fig.update_traces(texttemplate='%{text:.2%}', textposition='outside')
 
-    # Churn por tipo de contrato
     contract_fig = px.bar(df2.groupby('Contract')['Churn Value'].mean().reset_index(),
                           x='Contract', y='Churn Value', title='Churn por Contrato',
-                          color='Contract', color_discrete_map=color_map,
-                          text='Churn Value')
+                          color='Contract', color_discrete_map=color_map, text='Churn Value')
     contract_fig.update_layout(xaxis=dict(visible=False), **common_layout)
     contract_fig.update_traces(texttemplate='%{text:.2%}', textposition='outside')
 
-    # Churn por gênero e idade
-    df2['Gender'] = df2['Gender'].map({0: 'Masculino', 1: 'Feminino'})
-    df2['Senior Citizen'] = df2['Senior Citizen'].map({0: 'Adulto', 1: 'Idoso'})
-
-    gender_senior_fig = px.bar(df2.groupby(['Gender', 'Senior Citizen'])['Churn Value'].mean().reset_index(),
-                               x='Gender', y='Churn Value', color='Senior Citizen', barmode='group',
-                               title='Churn por Gênero e Idade', text='Churn Value',
-                               color_discrete_map=color_map)
-    gender_senior_fig.update_layout(**common_layout)
-    gender_senior_fig.update_traces(texttemplate='%{text:.2%}', textposition='outside')
-
-    # Serviços
     df2['Phone Service'] = df2['Phone Service'].map({0: 'No', 1: 'Yes'}).fillna(df2['Phone Service'])
     df2['Internet Service'] = df2['Internet Service'].map({0: 'DSL', 1: 'Fiber optic', 2: 'No'}).fillna(df2['Internet Service'])
     df2['Online Security'] = df2['Online Security'].map({0: 'No', 1: 'Yes', 2: 'No internet service'}).fillna(df2['Online Security'])
 
-    phone_service_fig = px.histogram(df2, x='Phone Service', title='Serviço de Telefone',
-                                     color='Phone Service', text_auto=True,
-                                     color_discrete_map={'Yes': '#3fa7d6', 'No': '#9b0d27'})
-    phone_service_fig.update_layout(xaxis=dict(visible=False), **common_layout)
-    phone_service_fig.update_traces(texttemplate='%{y}', textposition='outside')
+    phone_service_fig = px.pie(df2, names='Phone Service', title='Distribuição: Serviço de Telefone',
+                               color='Phone Service',
+                               color_discrete_map={'Yes': '#52BC20', 'No': '#6c757d'})
+    phone_service_fig.update_layout(**common_layout)
 
-    internet_service_fig = px.histogram(df2, x='Internet Service', title='Serviço de Internet',
-                                        color='Internet Service', text_auto=True,
-                                        color_discrete_map={'DSL': '#fac05e', 'Fiber optic': '#ee6352', 'No': '#59cd90'})
-    internet_service_fig.update_layout(xaxis=dict(visible=False), **common_layout)
-    internet_service_fig.update_traces(texttemplate='%{y}', textposition='outside')
+    internet_service_fig = px.pie(df2, names='Internet Service', title='Distribuição: Serviço de Internet',
+                                  color='Internet Service',
+                                  color_discrete_map={'DSL': '#007bff', 'Fiber optic': '#ffc107', 'No': '#6c757d'})
+    internet_service_fig.update_layout(**common_layout)
 
-    security_service_fig = px.histogram(df2, x='Online Security', title='Segurança Online',
-                                        color='Online Security', text_auto=True,
-                                        color_discrete_map={'Yes': '#3fa7d6', 'No': '#9b0d27', 'No internet service': '#748594'})
-    security_service_fig.update_layout(xaxis=dict(visible=False), **common_layout)
-    security_service_fig.update_traces(texttemplate='%{y}', textposition='outside')
-
-    bar_df = df2.groupby('Contract')['Monthly Charges'].mean().reset_index()
-    bar_df = bar_df.sort_values(by='Monthly Charges', ascending=False)
-    boxplot_fig = px.bar(
-    df2.groupby('Contract')['Monthly Charges'].mean().reset_index().sort_values(by='Monthly Charges', ascending=False),
-    x='Monthly Charges',
-    y='Contract',
-    orientation='h',
-    title='Média de Cobrança Mensal por Contrato',
-    color='Contract',
-    color_discrete_map={
-        'Mensal': '#8cb369',         # Verde oliva
-        'Anual (1 ano)': '#f4e285',  # Amarelo claro
-        'Bienal (2 anos)': '#f4a259' # Laranja queimado
-    },
-    text='Monthly Charges'
-    )
-    boxplot_fig.update_layout(**common_layout)
-    boxplot_fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
-
+    security_service_fig = px.pie(df2, names='Online Security', title='Distribuição: Segurança Online',
+                                  color='Online Security',
+                                  color_discrete_map={'Yes': '#17a2b8', 'No': '#6c757d', 'No internet service': '#D1CCC6'})
+    security_service_fig.update_layout(**common_layout)
 
     map_fig = px.scatter_mapbox(df2, lat='Latitude', lon='Longitude',
                                 color='CLTV', size='Monthly Charges',
@@ -217,8 +192,7 @@ def update_dashboard(selected_contract, selected_payment):
                                 color_continuous_scale='Viridis')
     map_fig.update_layout(**common_layout)
 
-    return cards, churn_hist_fig, churn_hist_fig2, churn_score_fig, payment_fig, contract_fig, gender_senior_fig, phone_service_fig, internet_service_fig, security_service_fig, boxplot_fig, map_fig
-
+    return cards, churn_hist_fig, churn_hist_fig2, churn_score_fig, payment_fig, contract_fig, churn_gender_age_fig, phone_service_fig, internet_service_fig, security_service_fig, map_fig
 
 if __name__ == '__main__':
     app.run(debug=True)
