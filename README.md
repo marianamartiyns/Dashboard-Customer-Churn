@@ -2,6 +2,11 @@
 
 Um painel interativo para visualizar métricas e indicadores de churn (cancelamento de clientes) em um serviço fictício, construído com **Dash**, **Plotly** e **Bootstrap**.
 
+
+https://github.com/user-attachments/assets/9143b0da-534c-44e6-a30c-43586eed0432
+
+
+
 ## 📋 Conteúdo
 
 - [Funcionalidades](#-funcionalidades)    
