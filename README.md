@@ -1,21 +1,10 @@
-# Dashboard de Clientes e Churn
+# 🗃️ Dashboard de Clientes e Churn
 
 Um painel interativo para visualizar métricas e indicadores de churn (cancelamento de clientes) em um serviço fictício, construído com **Dash**, **Plotly** e **Bootstrap**.
 
-
 https://github.com/user-attachments/assets/9143b0da-534c-44e6-a30c-43586eed0432
 
-
-
-## 📋 Conteúdo
-
-- [Funcionalidades](#-funcionalidades)    
-- [Estrutura do projeto](#-estrutura-do-projeto)  
-- [Tecnologias usadas](#-tecnologias-usadas)  
-- [Uso](#-uso)   
-- [Licença](#-licença)  
-
-## 🚀 Funcionalidades
+### 🚀 Funcionalidades
 
 - **KPI Cards** com:
   - Taxa média de churn
@@ -34,7 +23,7 @@ https://github.com/user-attachments/assets/9143b0da-534c-44e6-a30c-43586eed0432
   - **Indicadores** de serviços (telefone, internet, segurança) 
   - **Mapa** de clientes com CLTV  
 
-## ▶️ Como executar
+### ▶️ Como executar
 
 1. Certifique‑se de que o CSV de dados está em `data/churn.csv`.  
 2. No terminal, dentro da pasta do projeto e com o ambiente virtual ativado, execute:
@@ -46,13 +35,13 @@ https://github.com/user-attachments/assets/9143b0da-534c-44e6-a30c-43586eed0432
    http://127.0.0.1:8050
    ```
 
-## 📁 Estrutura do projeto
+### 📁 Estrutura do projeto
 
 ```text
 dashboard-churn/
 ├── app.py               # Script principal do Dash
 ├── data/
-│   └── churn.csv        # Base de dados de exemplo
+│   └── churn.csv        # Base de dados do exemplo
 ├── assets/              # CSS customizado
 │   └── custom.css
 ├── requirements.txt     # Lista de pacotes Python
@@ -60,7 +49,7 @@ dashboard-churn/
 └── .gitignore
 ```
 
-## 🛠 Tecnologias usadas
+### 🛠 Tecnologias usadas
 
 - [Python](https://www.python.org/)  
 - [Dash](https://dash.plotly.com/)  
@@ -68,15 +57,11 @@ dashboard-churn/
 - [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/)  
 - [pandas](https://pandas.pydata.org/)  
 
-## 🎯 Uso
+### 🎯 Uso
 
 1. Selecione o **Tipo de Contrato** e/ou **Método de Pagamento** nos filtros.  
 2. Os **KPI Cards** e **gráficos** serão atualizados automaticamente.  
 3. Navegue pelos gráficos para explorar os detalhes (zoom, tooltip, etc).
-
-## 📄 Licença
-
-Este projeto está licenciado sob os termos da [MIT License](LICENSE).
 
 ```py
 # Authors Info
