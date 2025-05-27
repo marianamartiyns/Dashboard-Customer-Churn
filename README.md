@@ -1,70 +1,68 @@
-# 🗃️ Dashboard de Clientes e Churn
+# 🗃️ Customer Dashboard and Churn Analysis
 
-Um painel interativo para visualizar métricas e indicadores de churn (cancelamento de clientes) em um serviço fictício, construído com **Dash**, **Plotly** e **Bootstrap**.
+An interactive dashboard to visualize customer churn metrics and indicators for a fictional service, built using **Dash**, **Plotly**, and **Bootstrap**.
 
 https://github.com/user-attachments/assets/9143b0da-534c-44e6-a30c-43586eed0432
 
-### 🚀 Funcionalidades
+### 🚀 Features
 
-- **KPI Cards** com:
-  - Taxa média de churn
-  - CLTV médio
-  - Faturamento médio
-  - Tempo médio de permanência
-  - Percentual de clientes idosos
-- **Filtros** interativos:
-  - Tipo de contrato
-  - Método de pagamento
-- **Gráficos**:
-  - Evolução do **Churn Score** por tempo de permanência  
-  - **Churn** por método de pagamento  
-  - **Churn** por tipo de contrato  
-  - **Churn** por gênero e faixa etária  
-  - **Indicadores** de serviços (telefone, internet, segurança) 
-  - **Mapa** de clientes com CLTV  
+- **KPI Cards** with:
+  - Average churn rate  
+  - Average CLTV (Customer Lifetime Value)  
+  - Average revenue  
+  - Average tenure  
+  - Percentage of senior customers  
+- **Interactive Filters**:
+  - Contract type  
+  - Payment method  
+- **Charts**:
+  - Churn Score trend by tenure  
+  - Churn by payment method  
+  - Churn by contract type  
+  - Churn by gender and age group  
+  - Service indicators (phone, internet, security)  
+  - Customer map with CLTV  
 
-### ▶️ Como executar
+### ▶️ How to Run
 
-1. Certifique‑se de que o CSV de dados está em `data/churn.csv`.  
-2. No terminal, dentro da pasta do projeto e com o ambiente virtual ativado, execute:
+1. Make sure the CSV file is located at `data/churn.csv`.  
+2. In the terminal, navigate to the project folder and activate the virtual environment, then run:
    ```bash
    python app.py
-   ```
-3. Abra o navegador e acesse:
-   ```
+3. Open your browser and go to:
+   ```bash
    http://127.0.0.1:8050
-   ```
 
-### 📁 Estrutura do projeto
+### 📁 Project Structure
 
-```text
+```
 dashboard-churn/
-├── app.py               # Script principal do Dash
+├── app.py               # Main Dash script
 ├── data/
-│   └── churn.csv        # Base de dados do exemplo
-├── assets/              # CSS customizado
+│   └── churn.csv        # Sample dataset
+├── assets/              # Custom CSS
 │   └── custom.css
-├── requirements.txt     # Lista de pacotes Python
-├── README.md            # Este arquivo
+├── requirements.txt     # Python dependencies
+├── README.md            # This file
 └── .gitignore
 ```
 
-### 🛠 Tecnologias usadas
+### 🛠 Technologies Used
 
-- [Python](https://www.python.org/)  
-- [Dash](https://dash.plotly.com/)  
-- [Plotly](https://plotly.com/python/)  
-- [Dash Bootstrap Components](https://dash-bootstrap-components.opensource.faculty.ai/)  
-- [pandas](https://pandas.pydata.org/)  
+- [x] Python
+- [X] Dash
+- [X] Plotly
+- [X] Dash Bootstrap Components
+- [X] pandas
 
-### 🎯 Uso
+### 🎯 Usage
 
-1. Selecione o **Tipo de Contrato** e/ou **Método de Pagamento** nos filtros.  
-2. Os **KPI Cards** e **gráficos** serão atualizados automaticamente.  
-3. Navegue pelos gráficos para explorar os detalhes (zoom, tooltip, etc).
+- Select the Contract Type and/or Payment Method using the filters.
+- The KPI Cards and charts will update automatically.
+- Explore the charts using zoom, tooltips, and other interactive features.
 
 ```py
-# Authors Info
+- # Authors Info
 
 # Cleydson de Souza, csfj@academico.ufpb.br
 # Davi Nasiasene Amorim, davi.nasiasene@academico.ufpb.br
